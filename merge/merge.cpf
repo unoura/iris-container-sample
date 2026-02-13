@@ -1,0 +1,8 @@
+[Startup]
+; Port for SuperServer
+DefaultPort=4002
+
+; [Actions]
+; SuperServer Portを追加する場合
+; CreateServer:Port=1999
+
