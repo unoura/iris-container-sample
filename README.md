@@ -96,7 +96,7 @@ Container で InterSystems IRIS for Health ( **製品版** )を動作させる�
   http://localhost/csp/bin/systems/module.cxw
 
 ----
-
+## プロジェクト構成
 
 [docker-compose.yml]
 
@@ -113,12 +113,11 @@ Container で InterSystems IRIS for Health ( **製品版** )を動作させる�
 [iris.script]
 * ロケールの設定などを行います。
 
-[durable/iscdata]
-* IRISのデータが保存されます。
-
 [webgateway/CSP.conf, CSP.ini]
 * Webゲートウェイの設定を行います。
 
+[durable/iscdata]
+* IRISのデータが保存されます。
 
 ## Acknowledgements
 このリポジトリは下記のリポジトリをベースに作成しています (Special thanks to @iijimam !)

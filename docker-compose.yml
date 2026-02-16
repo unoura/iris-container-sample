@@ -5,8 +5,6 @@ services:
     container_name: iris4h
     ports:
       - "1972:1972"
-#      - "4002:4002"
-#      - "1999:1999"
     environment:
       - TZ=JST-9
       - ISC_CPF_MERGE_FILE=/tmp/merge.cpf # 起動時の設定を適用
