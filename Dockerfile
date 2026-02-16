@@ -1,3 +1,4 @@
+# 必要に応じてベースイメージを変更してください
 FROM containers.intersystems.com/intersystems/irishealth:latest-em
 
 USER ${ISC_PACKAGE_MGRUSER}
