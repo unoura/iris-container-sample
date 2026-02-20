@@ -2,6 +2,8 @@
 
 Container で InterSystems IRIS for Health ( **製品版** )を動作させるサンプルです。
 
+※ WebサーバとしてApacheを利用していますが、Nginxを利用したい場合は 下記より[Nginxを利用する場合](#nginxを利用する場合)を参照してください。
+
 ## 起動手順
 
 - 1. シェルを実行します。 
@@ -98,26 +100,82 @@ Container で InterSystems IRIS for Health ( **製品版** )を動作させる�
 ----
 ## プロジェクト構成
 
-[docker-compose.yml]
+[docker-compose.yml](./docker-compose.yml)
 
 * コンテナのPortやVolumeなどの設定を行います。
 * ボリュームの永続化を行っています(ISC_DATA_DIRECTORY)。
 
-[Dockerfile]
+[Dockerfile](./Dockerfile)
 * イメージ作成時にiris.script を実行します。
 
-[merge/merge.cpf]
+[merge/merge.cpf](merge/merge.cpf)    
 * 各種設定を行います。
 * 例として、(コメントアウトしていますが)スーパーサーバーPortの設定が記載されています
 
-[iris.script]
+[iris.script](./iris.script)
 * ロケールの設定などを行います。
 
 [webgateway/CSP.conf, CSP.ini]
 * Webゲートウェイの設定を行います。
 
-[durable/iscdata]
+[durable/iscdata](./durable/iscdata)
 * IRISのデータが保存されます。
+
+
+## Nginxを利用する場合
+[docker-compose.yml](docker-compose.yml)
+
+webgwのimage： NginxのWebゲートウェイイメージを利用するように修正してください。
+
+```
+image: containers.intersystems.com/intersystems/webgateway-nginx:latest-em
+```
+[webgateway/CSP.conf](webgateway/CSP.conf)
+このファイルを下記の内容に書き換えてください。
+
+```
+location /csp/bin/Systems {
+    CSPFileTypes cxw;
+    CSPNSD_pass 127.0.0.1:7038;
+    CSPNSD_response_headers_maxsize 8k;
+    CSPNSD_connect_timeout 300s;
+    CSPNSD_send_timeout 300s;
+    CSPNSD_read_timeout 300s;
+}
+location /csp/bin/RunTime {
+    CSPFileTypes cxw;
+    CSPNSD_pass 127.0.0.1:7038;
+    CSPNSD_response_headers_maxsize 8k;
+    CSPNSD_connect_timeout 300s;
+    CSPNSD_send_timeout 300s;
+    CSPNSD_read_timeout 300s;
+}
+location /api {
+    CSP ON;
+    CSPNSD_pass 127.0.0.1:7038;
+    CSPNSD_response_headers_maxsize 8k;
+    CSPNSD_connect_timeout 300s;
+    CSPNSD_send_timeout 300s;
+    CSPNSD_read_timeout 300s;
+}
+location /csp/sys {
+    CSP ON;
+    CSPNSD_pass 127.0.0.1:7038;
+    CSPNSD_response_headers_maxsize 8k;
+    CSPNSD_connect_timeout 300s;
+    CSPNSD_send_timeout 300s;
+    CSPNSD_read_timeout 300s;
+}
+location /csp/healthshare {
+    CSP ON;
+    CSPNSD_pass 127.0.0.1:7038;
+    CSPNSD_response_headers_maxsize 8k;
+    CSPNSD_connect_timeout 300s;
+    CSPNSD_send_timeout 300s;
+    CSPNSD_read_timeout 300s;
+}
+```
+
 
 ## Acknowledgements
 このリポジトリは下記のリポジトリをベースに作成しています (Special thanks to @iijimam !)
