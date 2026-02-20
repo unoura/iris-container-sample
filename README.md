@@ -71,7 +71,7 @@ Container で InterSystems IRIS for Health ( **製品版** )を動作させる�
     docker compose logs -f
     # IRISコンテナのログを表示する
     docker compose logs iris
-    # WebGatewayコンテナを表示する
+    # WebGatewayコンテナのログを表示する
     docker compose logs webgw
     ```
 - IRISコンテナに接続する
@@ -115,7 +115,10 @@ Container で InterSystems IRIS for Health ( **製品版** )を動作させる�
 [iris.script](./iris.script)
 * ロケールの設定などを行います。
 
-[webgateway/CSP.conf, CSP.ini]
+[webgateway/CSP.conf](webgateway/CSP.conf)
+
+[webgateway/CSP.ini](webgateway/CSP.ini)
+
 * Webゲートウェイの設定を行います。
 
 [durable/iscdata](./durable/iscdata)
